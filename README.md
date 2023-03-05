@@ -25,9 +25,17 @@ https://github.com/Moddy2024/Anime-Face-Generation.git
 * [prediction.ipynb](https://github.com/Moddy2024/AdaIN-Style-Transfer/blob/main/prediction.ipynb) - The notebook includes code for loading the trained generator and using it to generate multiple anime face images.
 * [trained-models](https://github.com/Moddy2024/Anime-Face-Generation/tree/main/trained-models) - This directory contains the trained model files for Generator and Discriminator which can be used for further training or inference.
 # Dataset
-The Content Data which is the [COCO Dataset](https://cocodataset.org/#download) has been downloaded and extracted using wget command in the terminal. The script 
+The [Anime Faces dataset](https://www.kaggle.com/datasets/modassirafzal/anime-faces) is a collection of over 100,000 high-quality anime-style face images, spanning different years ranging from 2000-2021. The images feature a wide variety of colors, styles, and expressions, making it a valuable resource for training GANS for Anime Face Generation of new kinds and will help the model to generate diverse images. The script below can be used to download the dataset on COLAB or any other platform for training in Kaggle it can be directly used from the datset section of Kaggle. The Anime Faces dataset in Kaggle can be found [here](https://www.kaggle.com/datasets/modassirafzal/anime-faces).
 ```bash
+!wget --no-check-certificate \
+    "https://www.kaggle.com/datasets/modassirafzal/anime-faces/download?datasetVersionNumber=1" \
+    -O "/home/ec2-user/SageMaker/images.zip"
 
+local_zip = '/home/ec2-user/SageMaker/images.zip'
+zip_ref   = zipfile.ZipFile(local_zip, 'r')
+zip_ref.extractall('/home/ec2-user/SageMaker/')
+zip_ref.close()
+os.remove(local_zip)
 ```
 
 # Results
