@@ -25,15 +25,18 @@ https://github.com/Moddy2024/Anime-Face-Generation.git
 * [prediction.ipynb](https://github.com/Moddy2024/AdaIN-Style-Transfer/blob/main/prediction.ipynb) - The notebook includes code for loading the trained generator and using it to generate multiple anime face images.
 * [trained-models](https://github.com/Moddy2024/Anime-Face-Generation/tree/main/trained-models) - This directory contains the trained model files for Generator and Discriminator which can be used for further training or inference.
 # Dataset
-The [Anime Faces dataset](https://www.kaggle.com/datasets/modassirafzal/anime-faces) is a collection of over 100,000 high-quality anime-style face images, spanning different years ranging from 2000-2021. The images feature a wide variety of colors, styles, and expressions, making it a valuable resource for training GANS for Anime Face Generation of new kinds and will help the model to generate diverse images. The script below can be used to download the dataset on COLAB or any other platform for training in Kaggle it can be directly used from the datset section of Kaggle. The Anime Faces dataset in Kaggle can be found [here](https://www.kaggle.com/datasets/modassirafzal/anime-faces).
+The [Anime Faces dataset](https://www.kaggle.com/datasets/modassirafzal/anime-faces) is a collection of over 100,000 high-quality anime-style face images, spanning different years ranging from 2000-2021. The images feature a wide variety of colors, styles, and expressions, making it a valuable resource for training GANS for Anime Face Generation of new kinds and will help the model to generate diverse images. The script below can be used to download the dataset on COLAB or any other platform for training in Kaggle it can be directly used from the datset section of Kaggle. In order to download the dataset from Kaggle you need to extract [API Token](https://www.kaggle.com/discussions/general/371462#2060661) from the Kaggle account only then you will be able to download dataset from Kaggle to anywhere. The official instructions on how to use the [KAGGLE API](https://github.com/Kaggle/kaggle-api). The Anime Faces dataset in Kaggle can be found [here](https://www.kaggle.com/datasets/modassirafzal/anime-faces).
 ```bash
-!wget --no-check-certificate \
-    "https://www.kaggle.com/datasets/modassirafzal/anime-faces/download?datasetVersionNumber=1" \
-    -O "/home/ec2-user/SageMaker/images.zip"
+!ls -lha /content/kaggle.json
+!pip install -q kaggle
+!mkdir -p ~/.kaggle #Create the directory
+!cp kaggle.json ~/.kaggle/
+!chmod 600 /content/kaggle.json
 
-local_zip = '/home/ec2-user/SageMaker/images.zip'
-zip_ref   = zipfile.ZipFile(local_zip, 'r')
-zip_ref.extractall('/home/ec2-user/SageMaker/')
+!kaggle datasets download -d modassirafzal/anime-faces -p '/content/'
+local_zip = '/content/anime-faces.zip'
+zip_ref = zipfile.ZipFile(local_zip, 'r')
+zip_ref.extractall('/content')
 zip_ref.close()
 os.remove(local_zip)
 ```
